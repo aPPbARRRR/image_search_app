@@ -17,12 +17,15 @@ class ImageContainer extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Container(
-        child: Image.network(fit: BoxFit.cover,
-          item.previewURL,
-          errorBuilder: (context, _, __) {
-            return Image.asset(
-                'assets/images/KakaoTalk_Photo_2023-05-30-12-13-28.jpeg', fit: BoxFit.cover,);
-          },
+        child: Hero(
+          tag: item.id,
+          child: Image.network(fit: BoxFit.cover,
+            item.previewURL,
+            errorBuilder: (context, _, __) {
+              return Image.asset(
+                  'assets/images/KakaoTalk_Photo_2023-05-30-12-13-28.jpeg', fit: BoxFit.cover,);
+            },
+          ),
         ), // 이미지, 스켈레톤 등으로 처리해줄 것.
         color: Colors.amber,
       ),

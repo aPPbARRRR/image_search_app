@@ -49,12 +49,46 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisSpacing: 20,
                       crossAxisCount: 2),
                   itemBuilder: (context, index) {
-                    return ImageContainer(
-                      item: viewController.items[index],
+                    return InkWell(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        
+                          builder: (context) => ImageDetail(
+                              imageItem: viewController.items[index]))),
+                      child: ImageContainer(
+                        item: viewController.items[index],
+                      ),
                     );
                   }),
             ),
           )),
+    );
+  }
+}
+
+class ImageDetail extends StatelessWidget {
+  final ImageItem imageItem;
+
+  const ImageDetail({super.key, required this.imageItem});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              child: Hero(
+                tag: imageItem.id,
+                child: Image.network(imageItem.largeImageURL,
+                    fit: BoxFit.fitWidth),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 }
